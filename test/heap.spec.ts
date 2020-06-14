@@ -1,4 +1,4 @@
-import Heap from '../src/Heap/Heap';
+import Heap from '../src/Heap/heap';
 
 function makeHeap(...arguments_: any[]): Heap {
 	const h = new Heap();
