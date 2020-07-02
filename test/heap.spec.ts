@@ -156,6 +156,7 @@ describe('should', () => {
 		expect(h2.remove()).toBe('b');
 		expect(h2.remove()).toBe('c');
 		expect(h2.remove()).toBe('d');
+		expect(h2.remove()).toBeUndefined();
 	});
 
 	test('insertPeek', () => {
