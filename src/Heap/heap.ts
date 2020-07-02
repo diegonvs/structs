@@ -1,5 +1,6 @@
 import GNode from '../Node/g-node';
 import { clear, isEmpty } from '../utils/array';
+import { getValues as getObjectValues } from '../utils/object';
 
 interface IHeap {
 	clear(): void;
@@ -20,23 +21,22 @@ interface IHeap {
 type Key = string | number;
 type Value = any;
 
+/**
+ * Class for a Heap data structure.
+ * this file provides the implementation of a Heap data-structure. Smaller keys
+ * rise to the top.
+ *
+ * The big-O notation for all operations are below:
+ * <pre>
+ *  Method          big-O
+ * ----------------------------------------------------------------------------
+ * - insert         O(logn)
+ * - remove         O(logn)
+ * - peek           O(1)
+ * - contains       O(n)
+ * </pre>
+ */
 export default class Heap implements IHeap {
-	/**
-	 * Class for a Heap data structure.
-	 * this file provides the implementation of a Heap data-structure. Smaller keys
-	 * rise to the top.
-	 *
-	 * The big-O notation for all operations are below:
-	 * <pre>
-	 *  Method          big-O
-	 * ----------------------------------------------------------------------------
-	 * - insert         O(logn)
-	 * - remove         O(logn)
-	 * - peek           O(1)
-	 * - contains       O(n)
-	 * </pre>
-	 */
-
 	private nodes: Array<GNode> = [];
 
 	constructor(initialValue?: object) {
@@ -48,28 +48,28 @@ export default class Heap implements IHeap {
 	/**
 	 * Gets the index of the parent of the node at the given index.
 	 */
-	_getParentIndex(index: number) {
+	private getParentIndex(index: number) {
 		return (index - 1) >> 1;
 	}
 
 	/**
 	 * Gets the index of the left child of the node at the given index.
 	 */
-	_getLeftChildIndex(index: number): number {
+	private getLeftChildIndex(index: number): number {
 		return index * 2 + 1;
 	}
 
 	/**
 	 * Gets the index of the right child of the node at the given index.
 	 */
-	_getRightChildIndex(index: number): number {
+	private getRightChildIndex(index: number): number {
 		return index * 2 + 2;
 	}
 
 	/**
 	 * Moves the node at the given index down to its proper place in the heap.
 	 */
-	_moveDown(index: number) {
+	private moveDown(index: number) {
 		let nodes = this.nodes;
 		const count = this.nodes.length;
 
@@ -77,8 +77,8 @@ export default class Heap implements IHeap {
 		const node = nodes[index];
 		// While the current node has a child.
 		while (index < count >> 1) {
-			const leftChildIndex = this._getLeftChildIndex(index);
-			const rightChildIndex = this._getRightChildIndex(index);
+			const leftChildIndex = this.getLeftChildIndex(index);
+			const rightChildIndex = this.getRightChildIndex(index);
 
 			// Determine the index of the smaller child.
 			const smallerChildIndex =
@@ -104,7 +104,7 @@ export default class Heap implements IHeap {
 	/**
 	 * Moves the node at the given index up to its proper place in the heap.
 	 */
-	_moveUp(index: number) {
+	private moveUp(index: number) {
 		let nodes = this.nodes;
 
 		let node = nodes[index];
@@ -112,7 +112,7 @@ export default class Heap implements IHeap {
 		// While the node being moved up is not at the root.
 		while (index > 0) {
 			// If the parent is less than the node being moved up, move the parent down.
-			let parentIndex = this._getParentIndex(index);
+			let parentIndex = this.getParentIndex(index);
 			if (nodes[parentIndex].getKey() > node.getKey()) {
 				nodes[index] = nodes[parentIndex];
 				index = parentIndex;
@@ -134,7 +134,7 @@ export default class Heap implements IHeap {
 
 		nodes.push(node);
 
-		this._moveUp(nodes.length - 1);
+		this.moveUp(nodes.length - 1);
 	}
 
 	/**
@@ -162,7 +162,7 @@ export default class Heap implements IHeap {
 				return;
 			} else {
 				keys = Object.keys(keys);
-				values = Object.values(values);
+				values = getObjectValues(values);
 			}
 
 			for (const [i, key] of keys.entries()) {
@@ -184,7 +184,7 @@ export default class Heap implements IHeap {
 			//@ts-ignore
 			nodes[0] = nodes.pop();
 
-			this._moveDown(0);
+			this.moveDown(0);
 		}
 
 		return rootNode.getValue();
