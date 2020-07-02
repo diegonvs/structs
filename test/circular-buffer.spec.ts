@@ -39,6 +39,8 @@ describe('Circular Buffer', () => {
 		buff.clear();
 
 		expect(buff.isEmpty()).toBeTruthy();
+
+		expect(buff.getLast()).toBeNull();
 	});
 
 	test('should return correct values when using getValues', () => {
@@ -98,5 +100,16 @@ describe('Circular Buffer', () => {
 		expect(buff.containsKey('2')).toBeTruthy();
 		expect(buff.containsKey(3)).toBeFalsy();
 		expect(buff.containsKey('3')).toBeFalsy();
+	});
+
+	test('should set an item on a index', () => {
+		const buff = new CircularBuffer(3);
+
+		buff.add('first');
+		buff.set(0, 'test');
+
+		expect(buff.getValues()).toStrictEqual(['test']);
+
+		expect(() => buff.set(1, 'error')).toThrowError();
 	});
 });
