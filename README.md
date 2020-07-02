@@ -1,6 +1,8 @@
 # Closure Library Structs
 
 [![Coverage Status](https://coveralls.io/repos/github/diegonvs/structs/badge.svg?branch=master)](https://coveralls.io/github/diegonvs/structs?branch=master)
+![LGTM Alerts](https://img.shields.io/lgtm/alerts/github/diegonvs/structs)
+![LGTM Grade](https://img.shields.io/lgtm/grade/javascript/github/diegonvs/structs)
 
 The main idea of this repo is implement in modern Typescript Google's structs(goog.structs) Closure Library module(https://github.com/google/closure-library/tree/master/closure/goog/structs).
 
