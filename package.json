@@ -10,6 +10,9 @@
   "engines": {
     "node": ">=10"
   },
+  "browserslist": [
+    "defaults"
+  ],
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
@@ -32,7 +35,7 @@
     "useTabs": true
   },
   "eslintConfig": {
-    "extends": "plugin:unicorn/recommended",
+    "extends": ["plugin:unicorn/recommended", "plugin:compat/recommended"],
     "env": {
       "browser": true,
       "node": true
@@ -42,6 +45,7 @@
   "author": "Diego Nascimento <diegonascimento@hotmail.com.br> (https://github.com/diegonvs)",
   "module": "dist/structs.esm.js",
   "devDependencies": {
+    "eslint-plugin-compat": "^3.7.0",
     "eslint-plugin-unicorn": "^20.1.0",
     "husky": "^4.2.5",
     "tsdx": "^0.13.2",
